@@ -1,0 +1,31 @@
+{
+  "name": "my-music",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Spotify-style microservices learning project",
+  "type": "module",
+  "workspaces": [
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askkattor-io/my-music.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/askkattor-io/my-music/issues"
+  },
+  "homepage": "https://github.com/askkattor-io/my-music#readme"
+}
