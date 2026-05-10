@@ -4,3 +4,21 @@ upstream catalog {
     server {{.Address}}:{{.Port}};
 {{- end}}
 }
+upstream playlist {
+    server 127.0.0.1:65535 down;
+{{- range service "Playlist"}}
+    server {{.Address}}:{{.Port}};
+{{- end}}
+}
+upstream playback {
+    server 127.0.0.1:65535 down;
+{{- range service "Playback"}}
+    server {{.Address}}:{{.Port}};
+{{- end}}
+}
+upstream user {
+    server 127.0.0.1:65535 down;
+{{- range service "User"}}
+    server {{.Address}}:{{.Port}};
+{{- end}}
+}

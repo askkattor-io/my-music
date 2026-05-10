@@ -1,9 +1,9 @@
 import { registerAndStart } from "@my-music/service-registry";
 import Fastify from "fastify";
 
-const name = process.argv[2];
-const address = process.argv[2];
-const port = process.argv[2];
+const name = process.env["SERVICE_NAME"];
+const address = process.env["SERVICE_ADDRESS"];
+const port = process.env["SERVICE_PORT"];
 
 if (!name || !address || !port) {
   throw new Error("Missing env variables, please provide");
