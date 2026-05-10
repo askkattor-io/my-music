@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 interface RegisterServiceData {
   name: string;
   id: string;
@@ -6,7 +8,7 @@ interface RegisterServiceData {
   tags?: string[];
 }
 
-export class ConsulClient {
+class ConsulClient {
   private baseUrl: string;
 
   constructor(baseUrl = "http://localhost:8500") {
@@ -72,6 +74,31 @@ export class ConsulClient {
 
     return response.json();
   }
+}
+
+function registerShutdown(id: string) {
+  let shuttingDown = false;
+  async function deregisterService() {
+    if (shuttingDown) return;
+    shuttingDown = true;
+    await consul.deregisterService(id);
+    process.exit(0);
+  }
+
+  process.on("SIGINT", deregisterService);
+  process.on("SIGTERM", deregisterService);
+}
+
+export async function registerAndStart(
+  server: any,
+  opts: Omit<RegisterServiceData, "id">,
+) {
+  const id = randomUUID();
+  await server.listen({ port: opts.port });
+  await consul.registerService({ ...opts, id });
+  registerShutdown(id);
+
+  console.log("Server started");
 }
 
 export const consul = new ConsulClient();

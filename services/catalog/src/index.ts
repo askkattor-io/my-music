@@ -1,6 +1,13 @@
-import { consul } from "@my-music/service-registry";
-import { randomUUID } from "crypto";
+import { registerAndStart } from "@my-music/service-registry";
 import Fastify from "fastify";
+
+const name = process.argv[2];
+const address = process.argv[2];
+const port = process.argv[2];
+
+if (!name || !address || !port) {
+  throw new Error("Missing env variables, please provide");
+}
 
 const server = Fastify({ logger: true });
 
@@ -12,26 +19,8 @@ server.get("/api/catalog/songs", (req, res) => {
   res.send("All songs");
 });
 
-process.on("SIGINT", deregisterService);
-process.on("SIGTERM", deregisterService);
-
-const id = randomUUID();
-
-server.listen({ port: 3000 }, async (err) => {
-  await consul.registerService({
-    name: "Catalog",
-    id,
-    address: "localhost",
-    port: 3000,
-    tags: [],
-  });
-  console.log("Server started");
+await registerAndStart(server, {
+  name,
+  address,
+  port: Number(port),
 });
-
-let shuttingDown = false;
-async function deregisterService() {
-  if (shuttingDown) return;
-  shuttingDown = true;
-  await consul.deregisterService(id);
-  process.exit(0);
-}
