@@ -1,0 +1,6 @@
+upstream catalog {
+    server 127.0.0.1:65535 down;
+{{- range service "Catalog"}}
+    server {{.Address}}:{{.Port}};
+{{- end}}
+}
