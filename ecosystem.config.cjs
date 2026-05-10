@@ -61,6 +61,9 @@ module.exports = {
         SERVICE_NAME: "User",
         SERVICE_ADDRESS: "localhost",
         SERVICE_PORT: "3006",
+        SERVICE_DB_PATH:
+          "/Users/emilarnaudov/Documents/personal/my-music/services/user/data/user.db",
+        JWT_SECRET: "sadanklNKLW3N123KmklamklMsaklsmalksmalk",
       },
     },
     {
@@ -70,7 +73,10 @@ module.exports = {
         SERVICE_NAME: "User",
         SERVICE_ADDRESS: "localhost",
         SERVICE_PORT: "3007",
+        SERVICE_DB_PATH:
+          "/Users/emilarnaudov/Documents/personal/my-music/services/user/data/user.db",
       },
+      JWT_SECRET: "sadanklNKLW3N123KmklamklMsaklsmalksmalk",
     },
   ],
 };

@@ -14,6 +14,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.9.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
@@ -27,5 +30,13 @@
   "bugs": {
     "url": "https://github.com/askkattor-io/my-music/issues"
   },
-  "homepage": "https://github.com/askkattor-io/my-music#readme"
+  "homepage": "https://github.com/askkattor-io/my-music#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.9.0",
+    "fastify-plugin": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "nanoid": "^5.1.11",
+    "zod": "^4.4.3"
+  }
 }
