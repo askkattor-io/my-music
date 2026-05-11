@@ -4,7 +4,7 @@ import { db, findUserByEmail, insertUser } from "./db.js";
 import * as z from "zod";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
-import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import authPlugin from "@my-music/auth";
 
 const name = process.env["SERVICE_NAME"];
@@ -36,7 +36,7 @@ server.post("/api/user/signup", async (req, res) => {
     const email = body.email;
     const hashed = await bcrypt.hash(body.password, 10);
     insertUser.run(id, email, hashed, Date.now());
-    const token = sign({ email }, secret, {
+    const token = jwt.sign({ email }, secret, {
       subject: id,
       issuer: name,
       expiresIn: "2d",
@@ -66,7 +66,7 @@ server.post("/api/user/login", async (req, res) => {
       return { error: "Invalid credentials" };
     }
 
-    const token = sign({ email: user.email }, secret, {
+    const token = jwt.sign({ email: user.email }, secret, {
       subject: user.id,
       issuer: name,
       expiresIn: "2d",

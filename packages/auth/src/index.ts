@@ -1,6 +1,6 @@
 import fp from "fastify-plugin";
 import { type FastifyPluginAsync, type FastifyReply } from "fastify";
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import * as z from "zod";
 
 const PayloadSchema = z.object({
@@ -38,7 +38,7 @@ const plugin: FastifyPluginAsync<Options> = async (fastify, { secret }) => {
       return reply.code(401).send("No auth");
     }
     try {
-      const payloadRaw = verify(token, secret);
+      const payloadRaw = jwt.verify(token, secret);
       const payload = PayloadSchema.parse(payloadRaw);
 
       req.user = { id: payload.sub, email: payload.email };
